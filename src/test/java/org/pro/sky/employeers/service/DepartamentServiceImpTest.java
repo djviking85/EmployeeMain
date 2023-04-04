@@ -11,11 +11,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.pro.sky.employeers.model.Departament.DEPARTAMENT_MAP_ID;
 
 @ContextConfiguration(classes = {DepartamentServiceImp.class})
 @ExtendWith(SpringExtension.class)
@@ -112,23 +112,108 @@ class DepartamentServiceImpTest {
 
     // тест на успешность получения всех типов
     @Test
-    void getAll_success() {
+    void getAll_emptyResult() {
         // Входные данные
-
+        Integer departmentId = 3;
         // Ожидаемый результат
+        // когда берем всех сотрудников из сервиса - возвращаем пустоту
+        when(employeeService.getAll()).thenReturn(Collections.emptyList());
 
         // Тест
+        Map<String, List<Employee>> actualResult = departamentService.getAll(departmentId);
+        // проверяем на правду - что пустой результат
+        assertTrue(actualResult.isEmpty());
 
     }
 
     // тест на пустоту, если типов нет
     @Test
-    void getAll_noResult() {
+    void getAll_success() {
         // Входные данные
+        Integer departmentId = 2;
+        List<Employee> employees = new ArrayList<>();
+        Employee it1 = new Employee("Алекс", "Сигурдсон", 200000, DEPARTAMENT_MAP_ID.get(1));
+        Employee it2 = new Employee("Sam", "Schott", 150000, DEPARTAMENT_MAP_ID.get(1));
+
+        Employee buchgaltery1 = new Employee("Eva", "Brown", 25000, DEPARTAMENT_MAP_ID.get(2));
+        Employee buchgaltery2 = new Employee("Silvia", "Nilson", 35000, DEPARTAMENT_MAP_ID.get(2));
+        Employee buchgaltery3 = new Employee("Mira", "O'Hara", 45000, DEPARTAMENT_MAP_ID.get(2));
+
+        Employee managers1 = new Employee("Frank", "Blue", 60000, DEPARTAMENT_MAP_ID.get(3));
+        Employee managers2 = new Employee("Sam", "Smith", 65000, DEPARTAMENT_MAP_ID.get(3));
+        Employee managers3 = new Employee("Fill", "Varrant", 75000, DEPARTAMENT_MAP_ID.get(3));
+        Employee managers4 = new Employee("Ed", "Hollywood", 101000, DEPARTAMENT_MAP_ID.get(3));
+
+        employees.add(it1);
+        employees.add(it2);
+
+        employees.add(buchgaltery1);
+        employees.add(buchgaltery2);
+        employees.add(buchgaltery3);
+
+        employees.add(managers1);
+        employees.add(managers2);
+        employees.add(managers3);
+        employees.add(managers4);
 
         // Ожидаемый результат
 
+        // когда берем всех сотрудников из сервиса - возвращаем емплоис см выше
+        when(employeeService.getAll()).thenReturn(employees);
+        // создаем мапу
+        Map<String, List<Employee>> excpectedResultat = new HashMap<>();
+        // закидываем в нашу мапу бухгалтеров 1,2,3. где ключ номер депортамента
+        String departmentName = DEPARTAMENT_MAP_ID.get(departmentId).getName();
+        excpectedResultat.put(departmentName, List.of(buchgaltery1,buchgaltery2,buchgaltery3));
+
         // Тест
+        Map<String, List<Employee>> actualResult = departamentService.getAll(departmentId);
+        assertEquals(excpectedResultat, actualResult);
+
+    }
+    @Test
+    void getAll_NullDepartment() {
+        Integer departmentId = null;
+        List<Employee> employees = new ArrayList<>();
+        Employee it1 = new Employee("Алекс", "Сигурдсон", 200000, DEPARTAMENT_MAP_ID.get(1));
+        Employee it2 = new Employee("Sam", "Schott", 150000, DEPARTAMENT_MAP_ID.get(1));
+
+        Employee buchgaltery1 = new Employee("Eva", "Brown", 25000, DEPARTAMENT_MAP_ID.get(2));
+        Employee buchgaltery2 = new Employee("Silvia", "Nilson", 35000, DEPARTAMENT_MAP_ID.get(2));
+        Employee buchgaltery3 = new Employee("Mira", "O'Hara", 45000, DEPARTAMENT_MAP_ID.get(2));
+
+        Employee managers1 = new Employee("Frank", "Blue", 60000, DEPARTAMENT_MAP_ID.get(3));
+        Employee managers2 = new Employee("Sam", "Smith", 65000, DEPARTAMENT_MAP_ID.get(3));
+        Employee managers3 = new Employee("Fill", "Varrant", 75000, DEPARTAMENT_MAP_ID.get(3));
+        Employee managers4 = new Employee("Ed", "Hollywood", 101000, DEPARTAMENT_MAP_ID.get(3));
+
+        employees.add(it1);
+        employees.add(it2);
+
+        employees.add(buchgaltery1);
+        employees.add(buchgaltery2);
+        employees.add(buchgaltery3);
+
+        employees.add(managers1);
+        employees.add(managers2);
+        employees.add(managers3);
+        employees.add(managers4);
+
+        // Ожидаемый результат
+
+        // когда берем всех сотрудников из сервиса - возвращаем емплоис см выше
+        when(employeeService.getAll()).thenReturn(employees);
+        // создаем мапу
+        Map<String, List<Employee>> excpectedResultat = new HashMap<>();
+        // закидываем в нашу мапу бухгалтеров 1,2,3. где ключ номер депортамента
+
+        excpectedResultat.put("It", List.of(it1,it2));
+        excpectedResultat.put("Buchgaltery", List.of(buchgaltery1,buchgaltery2,buchgaltery3));
+        excpectedResultat.put("managers", List.of(managers1,managers2,managers3, managers4));
+
+        // Тест
+        Map<String, List<Employee>> actualResult = departamentService.getAll(departmentId);
+        assertEquals(excpectedResultat, actualResult);
 
     }
 
