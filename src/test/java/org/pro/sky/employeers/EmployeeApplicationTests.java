@@ -1,4 +1,4 @@
-package org.pro.sky.employee;
+package org.pro.sky.employeers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

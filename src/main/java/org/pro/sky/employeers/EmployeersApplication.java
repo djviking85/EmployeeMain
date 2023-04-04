@@ -1,13 +1,13 @@
-package org.pro.sky.employee;
+package org.pro.sky.employeers;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EmployeeApplication {
+public class EmployeersApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmployeeApplication.class, args);
+		SpringApplication.run(EmployeersApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package org.pro.sky.employee.exceptions;
+package org.pro.sky.employeers.exceptions;
 
 public class IncorrectNameException extends RuntimeException {
     public IncorrectNameException(String message) {

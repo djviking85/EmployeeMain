@@ -1,4 +1,4 @@
-package org.pro.sky.employee.model;
+package org.pro.sky.employeers.model;
 
 import java.util.HashMap;
 import java.util.Map;

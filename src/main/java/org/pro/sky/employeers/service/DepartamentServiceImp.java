@@ -1,9 +1,10 @@
-package org.pro.sky.employee.service;
+package org.pro.sky.employeers.service;
 
+import org.pro.sky.employeers.exceptions.DepartmentSearchException;
+import org.pro.sky.employeers.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pro.sky.employe25.employeers.Employer.exceptions.DepartmentSearchException;
-import pro.sky.employe25.employeers.Employer.model.Employee;
+
 
 import java.util.List;
 import java.util.Map;

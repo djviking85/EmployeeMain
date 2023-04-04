@@ -1,16 +1,18 @@
-package org.pro.sky.employee.service;
+package org.pro.sky.employeers.service;
 
 import org.apache.commons.lang3.StringUtils;
+import org.pro.sky.employeers.exceptions.EmployeeAlreadyAddedException;
+import org.pro.sky.employeers.exceptions.EmployeeNotFoundException;
+import org.pro.sky.employeers.exceptions.EmployeeStorageIsFullException;
+import org.pro.sky.employeers.exceptions.IncorrectNameException;
+import org.pro.sky.employeers.model.Employee;
 import org.springframework.stereotype.Service;
-import pro.sky.employe25.employeers.Employer.exceptions.EmployeeAlreadyAddedException;
-import pro.sky.employe25.employeers.Employer.exceptions.EmployeeNotFoundException;
-import pro.sky.employe25.employeers.Employer.exceptions.EmployeeStorageIsFullException;
-import pro.sky.employe25.employeers.Employer.exceptions.IncorrectNameException;
-import pro.sky.employe25.employeers.Employer.model.Employee;
+
 
 import java.util.*;
 
-import static pro.sky.employe25.employeers.Employer.model.Departament.DEPARTAMENT_MAP_ID;
+import static org.pro.sky.employeers.model.Departament.DEPARTAMENT_MAP_ID;
+
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {

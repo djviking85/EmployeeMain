@@ -1,12 +1,13 @@
-package org.pro.sky.employee.controller;
+package org.pro.sky.employeers.controller;
 
+import org.pro.sky.employeers.exceptions.DepartmentSearchException;
+import org.pro.sky.employeers.model.Employee;
+import org.pro.sky.employeers.service.DepartamentService;
+import org.pro.sky.employeers.service.DepartamentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.employe25.employeers.Employer.exceptions.DepartmentSearchException;
-import pro.sky.employe25.employeers.Employer.model.Employee;
-import pro.sky.employe25.employeers.Employer.service.DepartamentService;
-import pro.sky.employe25.employeers.Employer.service.DepartamentServiceImp;
+
 
 import java.util.List;
 import java.util.Map;
