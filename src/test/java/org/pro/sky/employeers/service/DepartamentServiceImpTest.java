@@ -49,6 +49,7 @@ class DepartamentServiceImpTest {
         // тут сравню на макс и на мин селари типов, все ли возвращается и равно ли оно
         Employee actual = departamentService.getEmployeeWithMinSalary(departmentId);
         assertEquals(employeeWithMinSalary, actual);
+        // тут я сразу сделал и на макс селари - но потом по видео попросили сделать в отдельном тесте - ниже сделано
         Employee actual2 = departamentService.getEmployeeWithMaxSalary(departmentId);
         assertEquals(employeeWithMaxSalary, actual2);
         assertTrue(minSalary < maxSalary);
@@ -73,10 +74,22 @@ class DepartamentServiceImpTest {
     @Test
     void getEmployeeWithMaxSalary_success() {
         // Входные данные
+        Integer departmentId = 1;
+        // вводим переменные для будущего теста по мин и макс зп
+        float maxSalary = 50000;
+        float minSalary = 20000;
+        Employee employeeWithMaxSalary = new Employee("Sergey", "Sergeev", maxSalary, Departament.DEPARTAMENT_MAP_ID.get(departmentId));
+        Employee employeeWithMinSalary = new Employee("Igor", "Igorev", minSalary, Departament.DEPARTAMENT_MAP_ID.get(departmentId));
+        // создаем лист куда вносим наших работников
+        List<Employee> employees = List.of(employeeWithMaxSalary, employeeWithMinSalary);
+       //подготовка Ожидаемый результат
+        // что говорят моки - когда - в сервисе принимаем всех = возвращаем емплоеров
+        when(employeeService.getAll()).thenReturn(employees);
 
-        // Ожидаемый результат
-
-        // Тест
+        // Тест и сравнение
+        Employee actual2 = departamentService.getEmployeeWithMaxSalary(departmentId);
+        assertEquals(employeeWithMaxSalary, actual2);
+        assertTrue(minSalary < maxSalary);
 
     }
 
@@ -84,12 +97,18 @@ class DepartamentServiceImpTest {
     @Test
     void getEmployeeWithMaxSalary_withDepartmentSearchException() {
         // Входные данные
-
+        Integer departmentId = 1;
         // Ожидаемый результат
-
+        // тут мы во всех возвращаем пустой лист
+        when(employeeService.getAll()).thenReturn(Collections.emptyList());
+        String expectedMessage = "Департамент не найден";
         // Тест
-
+        Exception exception = assertThrows(DepartmentSearchException.class, () -> departamentService.getEmployeeWithMaxSalary(departmentId));
+        // собственно и сравнение наших месседжей на эксепшн
+        assertEquals(expectedMessage, exception.getMessage());
     }
+
+
 
     // тест на успешность получения всех типов
     @Test
